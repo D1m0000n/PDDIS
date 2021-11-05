@@ -1,0 +1,26 @@
+- name: Test connection
+  hosts: all
+  tasks:
+    - name: ensure nginx is at the latest version
+      apt: name=nginx state=latest
+    - name: start nginx
+      service:
+        name: nginx
+        state: started
+    - name: copy the nginx config file and restart nginx
+      copy:
+        src: "{{ playbook_dir }}/static_site.cfg"
+        dest: /etc/nginx/sites-available/static_site.cfg
+    - name: create symlink
+      file:
+        src: /etc/nginx/sites-available/static_site.cfg
+        dest: /etc/nginx/sites-enabled/default
+        state: link
+    - name: copy the content of the web site
+      copy:
+        src: "{{ playbook_dir }}/task1_src/"
+        dest: /home/mftiedu/dnet/test-site/
+    - name: restart nginx
+      service:
+        name: nginx
+        state: restarted
