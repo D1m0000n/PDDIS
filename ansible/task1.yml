@@ -1,4 +1,4 @@
-- name: Test connection
+- name: Nginx
   hosts: all
   tasks:
     - name: ensure nginx is at the latest version on Debian
@@ -12,6 +12,11 @@
       service:
         name: nginx
         state: started
+
+    - name: create sites-available directory
+      file: state=directory path=/etc/nginx/sites-available
+    - name: create sites-enabled directory
+      file: state=directory path=/etc/nginx/sites-enabled
 
     - name: copy the nginx config file and restart nginx
       copy:
