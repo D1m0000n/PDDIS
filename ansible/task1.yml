@@ -1,0 +1,37 @@
+- name: Nginx
+  hosts: all
+  tasks:
+    - name: ensure nginx is at the latest version on Debian
+      apt: name=nginx state=latest
+      when: ansible_os_family == "Debian"
+    - name: ensure nginx is at the latest version on CentOs
+      yum: name=nginx state=latest
+      when: ansible_os_family == "RedHat"
+
+    - name: start nginx
+      service:
+        name: nginx
+        state: started
+
+    - name: create sites-available directory
+      file: state=directory path=/etc/nginx/sites-available
+    - name: create sites-enabled directory
+      file: state=directory path=/etc/nginx/sites-enabled
+
+    - name: copy the nginx config file and restart nginx
+      copy:
+        src: "{{ playbook_dir }}/static_site.cfg"
+        dest: /etc/nginx/sites-available/static_site.cfg
+    - name: create symlink
+      file:
+        src: /etc/nginx/sites-available/static_site.cfg
+        dest: /etc/nginx/sites-enabled/default
+        state: link
+    - name: copy the content of the web site
+      copy:
+        src: "{{ playbook_dir }}/task1_src/"
+        dest: /home/mftiedu/dnet/test-site/
+    - name: restart nginx
+      service:
+        name: nginx
+        state: restarted
