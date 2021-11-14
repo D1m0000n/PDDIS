@@ -1,3 +1,6 @@
+# Credentials
+Vault password: `123`
+
 # TASK1
 
 - Clone into the working folder
