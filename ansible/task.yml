@@ -1,0 +1,14 @@
+- name: Deploy java app
+  hosts: all
+  tasks:
+    - name: set src directory
+      set_fact:
+        task_src: //home/mftiedu/dnet/task_src
+
+    - name: create task directory
+      file: state=directory path={{ task_src }}
+
+    - name: copy src files
+      copy:
+        src: "../target/simple_calc-1.0-SNAPSHOT.jar"
+        dest: "{{ task_src }}"
