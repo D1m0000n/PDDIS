@@ -11,5 +11,7 @@
 
     - name: copy src files
       copy:
-        src: "target/simple_calc-1.0-SNAPSHOT.jar"
+        src: "{{ item }}"
         dest: "{{ task_src }}"
+      with_items:
+        - "../target/simple_calc-1.0-SNAPSHOT.jar"
