@@ -3,7 +3,7 @@
   tasks:
     - name: set src directory
       set_fact:
-        task_src: //home/mftiedu/dnet/task_src
+        task_src: /home/mftiedu/dnet/task_src
 
     - name: create task directory
       file: state=directory path={{ task_src }}
