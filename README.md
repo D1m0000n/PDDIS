@@ -1,2 +1,1 @@
-# PDDIS
-Practice design and development of information systems
+Everything is in web interface
