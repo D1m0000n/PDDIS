@@ -10,5 +10,5 @@
 
     - name: copy src files
       copy:
-        src: "../target/simple_calc-1.0-SNAPSHOT.jar"
+        src: "../../target/simple_calc-1.0-SNAPSHOT.jar"
         dest: "{{ task_src }}"
