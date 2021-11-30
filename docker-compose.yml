@@ -1,0 +1,13 @@
+version: "3.9"
+
+services:
+  echo:
+    image: try-echo
+    ports:
+      - 2345:5432
+    depends_on:
+      - history
+  history:
+    image: try-history
+    ports:
+      - 8082:8081
